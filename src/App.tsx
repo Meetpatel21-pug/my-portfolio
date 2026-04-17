@@ -217,13 +217,19 @@ function App() {
       })
 
       if (!response.ok) {
-        throw new Error('Message send failed')
+        const data = (await response.json().catch(() => null)) as { error?: string } | null
+        throw new Error(data?.error || 'Message send failed')
       }
 
       setFormNotice('Message sent successfully. I will get back to you soon.')
       setContactForm(initialFormState)
-    } catch {
-      setFormNotice('Unable to send message right now. Please email me directly at meetparsana211@gmail.com.')
+    } catch (error) {
+      const message = error instanceof Error ? error.message : ''
+      setFormNotice(
+        message
+          ? `${message} If needed, email me directly at meetparsana211@gmail.com.`
+          : 'Unable to send message right now. Please email me directly at meetparsana211@gmail.com.',
+      )
     } finally {
       setIsSubmitting(false)
     }
