@@ -1,0 +1,31 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020617" />
+      <stop offset="1" stop-color="#0F172A" />
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(930 170) rotate(152) scale(380 300)">
+      <stop stop-color="#67E8F9" stop-opacity="0.45" />
+      <stop offset="1" stop-color="#67E8F9" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 520) rotate(-18) scale(340 220)">
+      <stop stop-color="#F472B6" stop-opacity="0.32" />
+      <stop offset="1" stop-color="#F472B6" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#glow1)" />
+  <rect width="1200" height="630" fill="url(#glow2)" />
+
+  <rect x="78" y="82" width="1044" height="466" rx="28" fill="rgba(15,23,42,0.75)" stroke="rgba(148,163,184,0.28)" />
+
+  <text x="128" y="188" fill="#67E8F9" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="5">PORTFOLIO</text>
+  <text x="128" y="286" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="74" font-weight="800">Meet Parsana</text>
+  <text x="128" y="352" fill="#CBD5E1" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="600">Java • Python • Full-Stack Development</text>
+  <text x="128" y="430" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="500">Projects, skills, certifications, and downloadable resume</text>
+
+  <circle cx="986" cy="458" r="16" fill="#67E8F9" />
+  <circle cx="1034" cy="458" r="16" fill="#A78BFA" />
+  <circle cx="1082" cy="458" r="16" fill="#F472B6" />
+</svg>
