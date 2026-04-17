@@ -1,0 +1,44 @@
+MEET PARSANA
+Ahmedabad, India
+Phone: 7211199976
+Email: meetparsana211@gmail.com
+LinkedIn: https://www.linkedin.com/in/meet-parsana-1194a6313
+GitHub: https://github.com/Meetpatel21-pug
+
+SUMMARY
+Computer Engineering student at LJ University focused on practical systems, polished interfaces, and reliable full-stack applications.
+
+PROJECTS
+1) Stock Trading (Java desktop application)
+- Built a Swing/AWT stock trading app with authentication, buy/sell flows, and portfolio tracking.
+- Integrated SQL database storage and data structures such as linked lists and circular queues.
+- Added real-time stock updates and custom exception handling.
+Repo: https://github.com/Meetpatel21-pug/stock-trading-app
+
+2) ATS Checker (Streamlit web app)
+- Built a resume analysis app that scores ATS compatibility against job descriptions.
+- Implemented keyword matching, semantic similarity, and skill-gap analysis.
+- Supported PDF, DOCX, and TXT resume parsing with actionable feedback.
+Repo: https://github.com/Meetpatel21-pug/ATS_project
+
+3) EzyHeal (Full-stack healthcare app)
+- Built a Flask + SQLite healthcare commerce and appointment platform.
+- Implemented OTP email authentication, SHA256-based password handling, and reset flow.
+- Developed booking with slot checks, cancellation support, and RESTful APIs.
+Repo: https://github.com/Meetpatel21-pug/EzyHeal-Healthcare-Web-Application
+
+EDUCATION
+LJ University, Ahmedabad
+B.Tech in Computer Engineering (June 2024 - Aug 2028)
+
+SKILLS
+Programming: Java, Python, HTML, CSS
+Frameworks/Libraries: JavaScript, Bootstrap, Flask, Pandas, NumPy, Matplotlib, Tailwind
+Tools: Git, VS Code, IntelliJ, Jupyter Notebook
+Databases: MySQL, SQLite
+
+CERTIFICATIONS
+- Introduction to Java (Coursera)
+- Inheritance and Data Structures in Java (Coursera)
+- Introduction to HTML, CSS, and JavaScript (Coursera)
+- Generative AI: Introduction and Applications (Coursera)
