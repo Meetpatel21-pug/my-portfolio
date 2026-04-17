@@ -30,6 +30,20 @@ function sanitizeAppPassword(value: string | undefined): string {
   return sanitizeEnv(value).replace(/\s+/g, '')
 }
 
+function resolveFromEmail(configuredFromEmail: string, smtpUser: string): string {
+  const value = configuredFromEmail.toLowerCase()
+
+  if (!configuredFromEmail) {
+    return smtpUser
+  }
+
+  if (value.includes('your-email@example.com')) {
+    return smtpUser
+  }
+
+  return configuredFromEmail
+}
+
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' })
@@ -61,7 +75,7 @@ export default async function handler(req: any, res: any) {
   const user = sanitizeEnv(process.env.SMTP_USER)
   const pass = sanitizeAppPassword(process.env.SMTP_PASS)
   const secure = getBooleanEnv(process.env.SMTP_SECURE, port === 465)
-  const fromEmail = sanitizeEnv(process.env.SMTP_FROM_EMAIL) || user
+  const fromEmail = resolveFromEmail(sanitizeEnv(process.env.SMTP_FROM_EMAIL), user)
   const toEmail = sanitizeEnv(process.env.CONTACT_TO_EMAIL) || 'meetparsana211@gmail.com'
 
   if (!host || !user || !pass || !fromEmail) {
