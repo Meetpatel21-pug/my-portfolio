@@ -78,8 +78,16 @@ export default async function handler(req: any, res: any) {
   const fromEmail = resolveFromEmail(sanitizeEnv(process.env.SMTP_FROM_EMAIL), user)
   const toEmail = sanitizeEnv(process.env.CONTACT_TO_EMAIL) || 'meetparsana211@gmail.com'
 
-  if (!host || !user || !pass || !fromEmail) {
-    res.status(500).json({ error: 'SMTP environment variables are not configured.' })
+  const missingEnv: string[] = []
+  if (!host) missingEnv.push('SMTP_HOST')
+  if (!user) missingEnv.push('SMTP_USER')
+  if (!pass) missingEnv.push('SMTP_PASS')
+  if (!fromEmail) missingEnv.push('SMTP_FROM_EMAIL')
+
+  if (missingEnv.length > 0) {
+    res.status(500).json({
+      error: `SMTP environment variables are not configured: ${missingEnv.join(', ')}`,
+    })
     return
   }
 
