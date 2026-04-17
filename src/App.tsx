@@ -142,6 +142,7 @@ function App() {
   const [activeSection, setActiveSection] = useState('hero')
   const [contactForm, setContactForm] = useState<ContactFormState>(initialFormState)
   const [formNotice, setFormNotice] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     const sectionIds = navItems.map((item) => item.href.replace('#', ''))
@@ -190,25 +191,42 @@ function App() {
     setContactForm((previous) => ({ ...previous, [name]: value }))
   }
 
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (!contactForm.name.trim() || !contactForm.email.trim() || !contactForm.message.trim()) {
+    const name = contactForm.name.trim()
+    const email = contactForm.email.trim()
+    const subject = contactForm.subject.trim()
+    const message = contactForm.message.trim()
+
+    if (!name || !email || !message) {
       setFormNotice('Please fill in name, email, and message before sending.')
       return
     }
 
-    const subject = contactForm.subject.trim() || `Portfolio inquiry from ${contactForm.name.trim()}`
-    const body = [
-      `Name: ${contactForm.name.trim()}`,
-      `Email: ${contactForm.email.trim()}`,
-      '',
-      contactForm.message.trim(),
-    ].join('\n')
+    setIsSubmitting(true)
+    setFormNotice('Sending your message...')
 
-    window.location.href = `mailto:meetparsana211@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setFormNotice('Your email app should open now. If it does not, copy the message and email directly.')
-    setContactForm(initialFormState)
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, subject, message }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Message send failed')
+      }
+
+      setFormNotice('Message sent successfully. I will get back to you soon.')
+      setContactForm(initialFormState)
+    } catch {
+      setFormNotice('Unable to send message right now. Please email me directly at meetparsana211@gmail.com.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleResumeDownload = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -542,7 +560,7 @@ function App() {
                 />
               </label>
               <button type="submit" className="button button-primary contact-submit">
-                Send message
+                {isSubmitting ? 'Sending...' : 'Send message'}
               </button>
               {formNotice ? <p className="form-notice">{formNotice}</p> : null}
             </form>
