@@ -137,12 +137,15 @@ const initialFormState: ContactFormState = {
   message: '',
 }
 
+const heroHeadline = 'Building dependable software with Java, Python, and modern web tools.'
+
 function App() {
   const reduceMotion = useReducedMotion()
   const [activeSection, setActiveSection] = useState('hero')
   const [contactForm, setContactForm] = useState<ContactFormState>(initialFormState)
   const [formNotice, setFormNotice] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [typedHeadline, setTypedHeadline] = useState('')
 
   useEffect(() => {
     const sectionIds = navItems.map((item) => item.href.replace('#', ''))
@@ -183,6 +186,54 @@ function App() {
       window.removeEventListener('scroll', updateHomeState)
     }
   }, [])
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setTypedHeadline(heroHeadline)
+      return undefined
+    }
+
+    setTypedHeadline('')
+    let timeoutId = window.setTimeout(() => {}, 0)
+    let cancelled = false
+
+    const typeForward = (index: number) => {
+      if (cancelled) {
+        return
+      }
+
+      setTypedHeadline(heroHeadline.slice(0, index))
+
+      if (index >= heroHeadline.length) {
+        timeoutId = window.setTimeout(() => eraseBackward(index), 1200)
+        return
+      }
+
+      timeoutId = window.setTimeout(() => typeForward(index + 1), 70)
+    }
+
+    const eraseBackward = (index: number) => {
+      if (cancelled) {
+        return
+      }
+
+      setTypedHeadline(heroHeadline.slice(0, index))
+
+      if (index <= 0) {
+        timeoutId = window.setTimeout(() => typeForward(0), 250)
+        return
+      }
+
+      timeoutId = window.setTimeout(() => eraseBackward(index - 1), 36)
+    }
+
+    typeForward(0)
+
+    return () => {
+      cancelled = true
+      window.clearTimeout(timeoutId)
+    }
+  }, [reduceMotion])
 
   const handleFormChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -272,8 +323,9 @@ function App() {
           animate="visible"
         >
           <p className="eyebrow">Portfolio website</p>
-          <h1>
-            Building dependable software with Java, Python, and modern web tools.
+          <h1 className="hero-title">
+            <span className="hero-title-text">{typedHeadline}</span>
+            <span className="hero-caret" aria-hidden="true" />
           </h1>
           <p className="lede">
             Computer Engineering student at LJ University in Ahmedabad, focused on
