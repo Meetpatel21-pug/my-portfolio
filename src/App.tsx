@@ -518,7 +518,7 @@ function App() {
         >
           <div className="contact-left">
             <p className="eyebrow">Contact</p>
-            <h2>Let’s turn the resume into a live portfolio</h2>
+            <h2>Let&apos;s build dependable software together</h2>
 
             <a
               className="resume-download"
