@@ -324,8 +324,13 @@ function App() {
         >
           <p className="eyebrow">Portfolio website</p>
           <h1 className="hero-title">
-            <span className="hero-title-text">{typedHeadline}</span>
-            <span className="hero-caret" aria-hidden="true" />
+            <span className="hero-title-reserve" aria-hidden="true">
+              {heroHeadline}
+            </span>
+            <span className="hero-title-live">
+              <span className="hero-title-text">{typedHeadline}</span>
+              <span className="hero-caret" aria-hidden="true" />
+            </span>
           </h1>
           <p className="lede">
             Computer Engineering student at LJ University in Ahmedabad, focused on

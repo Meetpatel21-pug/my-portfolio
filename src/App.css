@@ -186,10 +186,20 @@ h1 {
 
 .hero-title {
   position: relative;
-  display: inline-flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  column-gap: 0.12em;
+  display: block;
+}
+
+.hero-title-reserve {
+  display: block;
+  visibility: hidden;
+  user-select: none;
+  pointer-events: none;
+}
+
+.hero-title-live {
+  position: absolute;
+  inset: 0;
+  display: block;
 }
 
 .hero-title-text {
