@@ -71,3 +71,9 @@ export default defineConfig([
   },
 ])
 ```
+
+## Contact Form
+
+The contact form uses FormSubmit directly and does not require SMTP or a backend mail handler.
+
+If FormSubmit shows a first-time activation email, open it once and activate the form, then submit again.

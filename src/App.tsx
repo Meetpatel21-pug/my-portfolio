@@ -138,11 +138,12 @@ const initialFormState: ContactFormState = {
 }
 
 const heroHeadline = 'Building dependable software with Java, Python, and modern web tools.'
+const formSubmitEndpoint = 'https://formsubmit.co/ajax/meetparsana211@gmail.com'
 
 function App() {
   const reduceMotion = useReducedMotion()
   const [activeSection, setActiveSection] = useState('hero')
-  const [contactForm, setContactForm] = useState<ContactFormState>(initialFormState)
+  const [contactfrom, setContactForm] = useState<ContactFormState>(initialFormState)
   const [formNotice, setFormNotice] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [typedHeadline, setTypedHeadline] = useState('')
@@ -245,10 +246,10 @@ function App() {
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const name = contactForm.name.trim()
-    const email = contactForm.email.trim()
-    const subject = contactForm.subject.trim()
-    const message = contactForm.message.trim()
+    const name = contactfrom.name.trim()
+    const email = contactfrom.email.trim()
+    const subject = contactfrom.subject.trim()
+    const message = contactfrom.message.trim()
 
     if (!name || !email || !message) {
       setFormNotice('Please fill in name, email, and message before sending.')
@@ -259,22 +260,35 @@ function App() {
     setFormNotice('Sending your message...')
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(formSubmitEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: JSON.stringify({
+          name,
+          email,
+          subject,
+          message,
+          _template: 'table',
+        }),
       })
 
       if (!response.ok) {
-        throw new Error('Message send failed')
+        const errorPayload = (await response.json().catch(() => ({}))) as {
+          error?: string
+          message?: string
+        }
+        const messageFromServer = errorPayload.message || errorPayload.error
+        throw new Error(messageFromServer || `Message send failed (${response.status})`)
       }
 
       setFormNotice('Message sent successfully. I will get back to you soon.')
       setContactForm(initialFormState)
-    } catch {
-      setFormNotice('Please contact me directly at meetparsana211@gmail.com.')
+    } catch (error) {
+      const primaryMessage = error instanceof Error ? error.message : ''
+      setFormNotice(primaryMessage || 'Please contact me directly at meetparsana211@gmail.com.')
     } finally {
       setIsSubmitting(false)
     }
@@ -379,6 +393,27 @@ function App() {
               Full-stack application design, 3D motion, and clean data handling.
             </p>
           </div>
+
+          <div className="extra-panel">
+            <p className="extra-label">Currently available</p>
+            <p>
+              I'm open to internships and freelance opportunities. I enjoy building
+              full‑stack applications, crafting polished UI, and working with
+              3D motion and data pipelines. Reach out via the contact button or
+              email me at meetparsana211@gmail.com.
+            </p>
+            <div className="extra-ctas">
+              <a className="button button-primary" href="#projects">Explore projects</a>
+              <a
+                className="button button-secondary"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=meetparsana211@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Email me
+              </a>
+            </div>
+          </div>
         </motion.div>
       </section>
 
@@ -391,7 +426,7 @@ function App() {
           viewport={{ once: true, amount: 0.35 }}
         >
           <p className="eyebrow">Projects</p>
-          <h2>Selected work from the resume</h2>
+          <h2 aria-hidden="true"></h2>
         </motion.div>
 
         <motion.div
@@ -443,7 +478,7 @@ function App() {
           viewport={{ once: true, amount: 0.3 }}
         >
           <p className="eyebrow">Skills</p>
-          <h2>Technical stack and tooling</h2>
+          <h2 aria-hidden="true"></h2>
         </motion.div>
 
         <motion.div
@@ -481,7 +516,7 @@ function App() {
           viewport={{ once: true, amount: 0.3 }}
         >
           <p className="eyebrow">Certifications</p>
-          <h2>Coursework and credential highlights</h2>
+          <h2 aria-hidden="true"></h2>
         </motion.div>
 
         <motion.div
@@ -581,7 +616,7 @@ function App() {
                 <input
                   type="text"
                   name="name"
-                  value={contactForm.name}
+                  value={contactfrom.name}
                   onChange={handleFormChange}
                   placeholder="Your name"
                 />
@@ -591,7 +626,7 @@ function App() {
                 <input
                   type="email"
                   name="email"
-                  value={contactForm.email}
+                  value={contactfrom.email}
                   onChange={handleFormChange}
                   placeholder="you@example.com"
                 />
@@ -601,7 +636,7 @@ function App() {
                 <input
                   type="text"
                   name="subject"
-                  value={contactForm.subject}
+                  value={contactfrom.subject}
                   onChange={handleFormChange}
                   placeholder="Project discussion"
                 />
@@ -610,7 +645,7 @@ function App() {
                 Message
                 <textarea
                   name="message"
-                  value={contactForm.message}
+                  value={contactfrom.message}
                   onChange={handleFormChange}
                   rows={4}
                   placeholder="Tell me what you would like to build"

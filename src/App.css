@@ -129,7 +129,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
   gap: 28px;
-  align-items: center;
+  align-items: stretch;
   padding: 48px 0 22px;
 }
 
@@ -150,6 +150,9 @@
   overflow: hidden;
   padding: 36px;
   border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
 }
 
 .hero-copy::before {
@@ -395,6 +398,35 @@ h3 {
   padding: 18px 20px;
   border: 1px solid rgba(148, 163, 184, 0.16);
   background: rgba(8, 15, 30, 0.74);
+}
+
+.extra-panel {
+  margin-top: 14px;
+  padding: 18px 20px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: linear-gradient(180deg, rgba(10,18,34,0.78), rgba(8,15,30,0.7));
+  border-radius: 18px;
+}
+
+.extra-label {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.extra-panel p {
+  margin: 0 0 12px;
+  color: rgba(226, 232, 240, 0.88);
+  line-height: 1.6;
+}
+
+.extra-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .status-label,
@@ -770,6 +802,10 @@ h3 {
   }
 
   .scene-fallback {
+    min-height: 440px;
+  }
+
+  .hero-copy {
     min-height: 440px;
   }
 
